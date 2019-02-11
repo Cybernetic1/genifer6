@@ -3,29 +3,26 @@
   (:gen-class))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (println "Welcome to Genifer 6"))
 
-(defrecord SupportRequest [client level])
+(defrecord Happy [name level])
 
-(defrecord ClientRepresentative [name client])
+(defrecord Loves [name1 name2])
 
-(defrule is-important
-  "Find important support requests."
-  [SupportRequest (= :high level)]
+(defrule rule1
+  [Happy (= :high level)]
   =>
-  (println "High support requested!"))
+  (println "High level happy detected!"))
 
-(defrule notify-client-rep
-  "Find the client representative and request support."
-  [SupportRequest (= ?client client)]
-  [ClientRepresentative (= ?client client) (= ?name name)]
+(defrule rule2
+  [Happy (= ?name1 name)]
+  [Loves (= ?name1 name1) (= ?name2 name2)]
   =>
-  (println "Notify" ?name "that"
-           ?client "has a new support request!"))
+  (println "Notify" ?name1 "that"
+           ?name2 "is happy!"))
 
 (-> (mk-session 'genifer6.core)
-    (insert (->ClientRepresentative "Alice" "Acme")
-            (->SupportRequest "Acme" :high))
+    (insert (->Loves "John" "Mary")
+            (->Happy "John" :high))
     (fire-rules))
