@@ -26,3 +26,12 @@
     (insert (->Loves "John" "Mary")
             (->Happy "John" :high))
     (fire-rules))
+
+(comment "
+The genome consists of a set of rules which evolve cooperatively.
+Each candidate represents just one rule.
+Each rule has head, tail.
+Each part consists of var symbols and const symbols.
+* Need to determine scoring of rules.
+* Port GA algorithm to Clojure
+")
