@@ -1,10 +1,12 @@
 (ns genifer6.core
   (:require [clara.rules :refer :all])
+  (:require [genifer6.GeneticAlgorithmTest1 :refer :all])
   (:gen-class))
 
 (defn -main
   [& args]
-  (println "Welcome to Genifer 6"))
+  (println "Welcome to Genifer 6")
+  (evolve))
 
 (defrecord Happy [name level])
 
