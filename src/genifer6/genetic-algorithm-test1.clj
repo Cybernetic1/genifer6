@@ -51,24 +51,23 @@
 
 (setf r (rand-int 1000))        ; between 0 and N
 
+;; ** Initialize population
+;; This is the set of current KB formulas, no need to initialize
+
+;; Repeat until success:
+;;    ** Select formulas to recombine
+;;    ** Select formulas to mutate
+;;    at this point we get some new candidates
+;;    ** Evaluate new KB
+;;        test KB on new / existing examples
+;;    ** Select survivors
+;;        based on scores
+
+;; This is the example from the book " Clever Algorithms", translated from Ruby
+
 (defn oneMax [bitString]
-" ;; ** Initialize population
-  ;; This is the set of current KB formulas, no need to initialize
-
-  ;; Repeat until success:
-  ;;    ** Select formulas to recombine
-  ;;    ** Select formulas to mutate
-  ;;    at this point we get some new candidates
-  ;;    ** Evaluate new KB
-  ;;        test KB on new / existing examples
-  ;;    ** Select survivors
-  ;;        based on scores
-
-  ;; This is the example from the book " Clever Algorithms", translated from Ruby
-
-  ;; count number of '1'"
-  return (count bitString)
-    bitString.count(_ == '1')
+  "count number of 1's"
+  bitString.count(_ == '1'))
 
 (defn randomBitString [numBits]
     "generate a string of length num_bits"
