@@ -5,8 +5,7 @@
 
 (defn -main
   [& args]
-  (println "Welcome to Genifer 6")
-  (evolve))
+  (println "Welcome to Genifer 6"))
 
 (defrecord Happy [name level])
 
@@ -24,16 +23,24 @@
   (println "Notify" ?name1 "that"
            ?name2 "is happy!"))
 
+(defrule rule3
+  [Loves (= ?name1 name1) (= ?name2 name2)]
+  [Loves (= ?name2 name1) (= ?name1 name2)]
+  =>
+  (insert! (->Happy ?name1 :high)))
+
 (-> (mk-session 'genifer6.core)
     (insert (->Loves "John" "Mary")
-            (->Happy "John" :high))
+            (->Loves "Mary" "John")
+            (->Happy "Mary" :high))
     (fire-rules))
 
-(comment "
-The genome consists of a set of rules which evolve cooperatively.
-Each candidate represents just one rule.
-Each rule has head, tail.
-Each part consists of var symbols and const symbols.
-* Need to determine scoring of rules.
-* Port GA algorithm to Clojure
-")
+
+;; General form of a "predicate" declaration:
+(defrecord P0001 [V0001 V0002 V0003])
+
+;; General form of a "rule" declaration:
+;(defrule R0001
+;  [P0001 (= ?
+;  =>
+;  [])

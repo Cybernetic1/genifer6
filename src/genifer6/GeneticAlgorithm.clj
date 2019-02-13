@@ -1,6 +1,53 @@
-(ns genifer6.GeneticAlgorithmTest1)
+(ns genifer6.GeneticAlgorithm)
 
-;; This is the example from the book " Clever Algorithms", translated from Ruby
+;; Standard evolutionary algorithm:
+;; ==============================
+;; Initialize population
+;; Repeat until success:
+;;    Select parents
+;;    Recombine, mutate
+;;    Evaluate
+;;    Select survivors
+;; ==============================
+
+;; * The genome consists of a set of rules which evolve co-operatively.
+;; * Each candidate represents just one rule.
+;; * Each rule has head, tail.
+;; * Heads and tails are composed from "var" symbols and "const" symbols.
+
+;; TO-DO:
+;; * How to score rules?
+;; * Rules have variable length, OK?
+;;    -- as long as their lengths can decrease during learning
+
+;; INPUT:
+;; 1) examples
+;; 2) goal / command
+;; 3) background knowledge (BK) in the form of logic formulas
+
+;; OUTPUT:
+;; logic formulas + program that achieves the goal
+
+;; POPULATION:
+;; contains logic formulas and program steps (actions)
+
+;; SCORING and EVALUATION:
+;; 1) correct answers from examples = reward
+;; 2) background knowledge may suggest "this is a good program"
+
+;; We should beware especially of synergistic interactions
+
+;; ** Initialize population
+;; This is the set of current KB formulas, no need to initialize
+
+;; Repeat until success:
+;;    ** Select formulas to recombine
+;;    ** Select formulas to mutate
+;;    at this point we get some new candidates
+;;    ** Evaluate new KB
+;;        test KB on new / existing examples
+;;    ** Select survivors
+;;        based on scores
 
 ;; Constant parameters:
 (def numBits 64)
@@ -14,6 +61,7 @@
   (count (filter #{1} bitString)))
 
 (defn fitness [gene]
+    ;; println("fitness: " + gene)
     (oneMax gene))
 
 (defn printCandidate [can]
