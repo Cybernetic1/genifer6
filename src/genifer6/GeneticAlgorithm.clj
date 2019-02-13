@@ -1,6 +1,5 @@
 (ns genifer6.GeneticAlgorithm
-  (:require [clara.rules :refer :all])
-  (:gen-class))
+  (:require [genifer6.toClara :refer :all]))
 
 ; TO-DO:
 ; * Beware especially of synergistic interactions
@@ -143,6 +142,8 @@
         (mutateProp prop rate))
       (mutateProp (second rule) rate))))
 
+(def pointMutate mutateRule)    ; alias
+
 ; Pick a point within Parent1,
 ; cross Parent1's gene with Parent2's
 (defn crossover [parent1 parent2 crossover-rate]
@@ -194,7 +195,7 @@
     (printRule rule))
   (def best (atom (first @initPop)))
 
-  (prepareClara)
+  (genifer6.toClara/prepareClara)
 
   (loop [i maxGens]
     (println "Gen " i)
@@ -212,7 +213,7 @@
 
       (reset! initPop pop2)
 
-      (if (= (fitness @best) numBits)
+      (if (= (fitness @best) 100)
         (println "Success!!!")
         (recur (- i 1))))))
 

@@ -2,45 +2,39 @@
   (:require [clara.rules :refer :all])
   (:gen-class))
 
-(defrecord p1 [x1 x2 x3])
-(defrecord p2 [x1 x2 x3])
-(defrecord p3 [x1 x2 x3])
-(defrecord p4 [x1 x2 x3])
-(defrecord p5 [x1 x2 x3])
-(defrecord p6 [x1 x2 x3])
-(defrecord p7 [x1 x2 x3])
-(defrecord p8 [x1 x2 x3])
-(defrecord p9 [x1 x2 x3])
-(defrecord p10 [x1 x2 x3])
-
-(-> (mk-session 'genifer6.core)
-    (insert (->Loves "John" "Mary")
-            (->Loves "Mary" "John")
-            (->Happy "Mary" :high))
-    (fire-rules))
-
 ;; General form of a "predicate" declaration
 ;; =========================================
-;(defrecord P0001 [V0001 V0002 V0003])
+;; * The format is generic and does not require learning, can be fixed initially
+; (defrecord p1 [L1 L2 L3])
 
 ;; General form of a "rule" declaration
 ;; ====================================
-;(defrule R0001
-;  [P0001 (= ?
+; (defrule r1
+;  [p1 (= ?v1 L1) (= ?v2 L2)]
+;  [p1 (= ?v2 L1) (= ?v1 L2)]
 ;  =>
-;  [])
+;  (insert! (->p3 ?v1)))
+;; The gene would be:
+;; p1 ?v1 ?v2 ^ p1 ?v2 ?v1 => p3 ?v1
+;; The format as list:
+;; [ [] [] ] => []
+
+; Declare predicates
+(defrecord p1 [L1 L2 L3])
+(defrecord p2 [L1 L2 L3])
+(defrecord p3 [L1 L2 L3])
+(defrecord p4 [L1 L2 L3])
+(defrecord p5 [L1 L2 L3])
+(defrecord p6 [L1 L2 L3])
+(defrecord p7 [L1 L2 L3])
+(defrecord p8 [L1 L2 L3])
+(defrecord p9 [L1 L2 L3])
+(defrecord p10 [L1 L2 L3])
 
 (defn prepareClara []
-  ;; Declare predicates
-  (dotimes genifer6.GeneticAlgorithm/numPreds
-    (defrecord (symbol 
 
-  (-> (mk-session 'Genifer)
-    (insert (->Loves "John" "Mary")
-            (->Loves "Mary" "John")
-            (->Happy "Mary" :high))
-    (fire-rules))
-
-  (defrecord P.. [L.. ])
-
-  )
+  (-> (mk-session 'genifer6.toClara)
+    (insert (->p1 "John" "Mary")
+            (->p2 "Mary" "John")
+            (->p3 "Mary"))
+    (fire-rules)))
